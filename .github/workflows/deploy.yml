@@ -1,0 +1,28 @@
+name: Deploy al VPS
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Deploy vía SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /var/www/hoteles_api
+            git pull origin main
+            source .venv/bin/activate
+            pip install -r requirements.txt
+            python manage.py migrate --no-input
+            python manage.py collectstatic --no-input
+            sudo systemctl restart gunicorn
+            echo "✅ Deploy completado exitosamente"
