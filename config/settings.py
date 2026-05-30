@@ -10,9 +10,14 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# ─── Seguridad ────────────────────────────────────────────────────────────────
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-dev-key-change-in-production')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+
+ALLOWED_HOSTS = os.getenv(
+    'ALLOWED_HOSTS',
+    'localhost,127.0.0.1'
+).split(',')
 
 # ─── Aplicaciones ─────────────────────────────────────────────────────────────
 INSTALLED_APPS = [
@@ -22,18 +27,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # Librerías
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
     'drf_spectacular',
+
     # Apps del proyecto
     'reservas',
 ]
 
+# ─── Middleware (orden correcto) ──────────────────────────────────────────────
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -62,7 +71,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# ─── Base de Datos ───────────────────────────────────────────────────────────
+# ─── Base de Datos ────────────────────────────────────────────────────────────
 DB_ENGINE = os.getenv('DB_ENGINE', 'django.db.backends.postgresql')
 
 if DB_ENGINE == 'django.db.backends.sqlite3':
@@ -84,9 +93,10 @@ else:
         }
     }
 
-# ─── Autenticación con JWT ────────────────────────────────────────────────────
+# ─── Auth custom ──────────────────────────────────────────────────────────────
 AUTH_USER_MODEL = 'reservas.Usuario'
 
+# ─── Django REST Framework ────────────────────────────────────────────────────
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -99,13 +109,14 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
 }
 
+# ─── JWT ───────────────────────────────────────────────────────────────────────
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=8),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': True,
 }
 
-# ─── Documentación API (Swagger / Redoc) ─────────────────────────────────────
+# ─── Swagger / Redoc ──────────────────────────────────────────────────────────
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Hoteles API',
     'DESCRIPTION': 'Sistema de Reservas de Hoteles - Backend REST API',
@@ -113,14 +124,17 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
-# ─── CORS ─────────────────────────────────────────────────────────────────────
+# ─── CORS (DEV) ────────────────────────────────────────────────────────────────
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
     "http://127.0.0.1:3000",
 ]
 
-# ─── Validación de contraseñas ────────────────────────────────────────────────
+# (opcional en desarrollo)
+CORS_ALLOW_ALL_ORIGINS = True
+
+# ─── Password validation ──────────────────────────────────────────────────────
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -128,12 +142,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
+# ─── Internacionalización ─────────────────────────────────────────────────────
 LANGUAGE_CODE = 'es-ec'
 TIME_ZONE = 'America/Guayaquil'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
+# ─── Static files ─────────────────────────────────────────────────────────────
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# ─── Default ───────────────────────────────────────────────────────────────────
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
