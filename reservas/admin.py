@@ -44,15 +44,42 @@ class ReservaServiciosInline(admin.TabularInline):
 
 @admin.register(Reserva)
 class ReservaAdmin(admin.ModelAdmin):
-    list_display  = ('id', 'cliente', 'habitacion', 'fecha_entrada', 'fecha_salida', 'estado', 'noches')
+    list_display  = ('id', 'cliente', 'habitacion', 'fecha_entrada', 'fecha_salida', 'estado', 'get_noches')
     list_filter   = ('estado', 'fecha_entrada')
     search_fields = ('cliente__nombre', 'habitacion__numero')
-    readonly_fields = ('noches', 'subtotal_habitacion', 'subtotal_servicios', 'total')
+    readonly_fields = ('get_noches', 'get_subtotal_habitacion', 'get_subtotal_servicios', 'get_total')
     inlines       = [ReservaServiciosInline]
 
-    def noches(self, obj):
-        return obj.noches
-    noches.short_description = 'Noches'
+    fields = (
+        'cliente', 'habitacion', 'fecha_entrada', 'fecha_salida',
+        'estado', 'observaciones',
+        'get_noches', 'get_subtotal_habitacion',
+        'get_subtotal_servicios', 'get_total'
+    )
+
+    def get_noches(self, obj):
+        if not obj or not obj.fecha_entrada or not obj.fecha_salida:
+            return '—'
+        return f"{obj.noches} noche(s)"
+    get_noches.short_description = 'Noches'
+
+    def get_subtotal_habitacion(self, obj):
+        if not obj or not obj.fecha_entrada or not obj.fecha_salida or not obj.habitacion:
+            return '—'
+        return f"${obj.subtotal_habitacion:.2f}"
+    get_subtotal_habitacion.short_description = 'Subtotal habitación'
+
+    def get_subtotal_servicios(self, obj):
+        if not obj or not obj.pk:
+            return '—'
+        return f"${obj.subtotal_servicios:.2f}"
+    get_subtotal_servicios.short_description = 'Subtotal servicios'
+
+    def get_total(self, obj):
+        if not obj or not obj.fecha_entrada or not obj.fecha_salida:
+            return '—'
+        return f"${obj.total:.2f}"
+    get_total.short_description = 'Total'
 
 
 @admin.register(Factura)

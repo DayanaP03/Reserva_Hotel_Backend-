@@ -4,7 +4,7 @@ Sistema de Reservas de Hoteles construido con **Django 4.2 + Django REST Framewo
 
 ---
 
-## 📁 Estructura del Proyecto
+## 📁 Estructura de mi Proyecto Reserva de Hotel
 
 ```
 hoteles_api/
@@ -56,15 +56,15 @@ hoteles_api/
 git clone <tu-repositorio>
 cd hoteles_api
 python -m venv .venv
-source .venv/bin/activate        # Linux/Mac
-# .venv\Scripts\activate         # Windows
+source .venv/bin/activate       
+
 pip install -r requirements.txt
 ```
 
 ### 2. Configurar variables de entorno
 ```bash
 cp .env.example .env
-# Edita .env con tus credenciales de PostgreSQL
+
 ```
 
 ### 3. Crear la base de datos en PostgreSQL
