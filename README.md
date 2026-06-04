@@ -1,6 +1,12 @@
-# 🏨 Hoteles API — Backend Django REST
+# 🏨 Reserva de Hoteles API — Backend Django REST
+<p align="center">
+  <img src="https://ute.edu.ec/wp-content/uploads/2021/08/LogoUteTrans.png" width="300">
+</p>
 
-Sistema de Reservas de Hoteles construido con **Django 4.2 + Django REST Framework + JWT**.
+## Descripción
+
+
+Sistema desarrollado para la gestión de reservas hoteleras que permite administrar usuarios, habitaciones, reservas, pagos y categorías mediante una API REST desarrollada con Django REST Framework y una aplicación móvil en Kotlin.
 
 ---
 
