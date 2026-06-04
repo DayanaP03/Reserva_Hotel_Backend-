@@ -3,12 +3,89 @@
   <img src="https://ute.edu.ec/wp-content/uploads/2021/08/LogoUteTrans.png" width="300">
 </p>
 
+
 ## Descripción
 
 
 Sistema desarrollado para la gestión de reservas hoteleras que permite administrar usuarios, habitaciones, reservas, pagos y categorías mediante una API REST desarrollada con Django REST Framework y una aplicación móvil en Kotlin.
 
 ---
+
+
+## 🌐 Acceso al Sistema Desplegado
+
+El proyecto se encuentra desplegado en un servidor VPS y puede ser utilizado desde cualquier dispositivo con acceso a Internet.
+
+### Backend API
+
+Base URL:
+
+```text
+https://pisco-hotel.uaeftt-ute.site/
+```
+
+### Panel de Administración Django
+
+Acceder desde:
+
+```text
+https://pisco-hotel.uaeftt-ute.site/admin
+```
+
+### Documentación Swagger
+
+Acceder desde:
+
+```text
+https://pisco-hotel.uaeftt-ute.site/api
+```
+
+
+
+### Pasos para utilizar el sistema
+
+#### 1. Ingresar al panel de administración
+
+Abrir en el navegador:
+
+```text
+https://TU-DOMINIO.com/admin/
+```
+
+#### 2. Iniciar sesión
+
+Ingresar las credenciales proporcionadas por el administrador del sistema.
+
+Correo: admin123@gmail.com
+Contraseña: admin
+
+#### 3. Gestionar la información
+
+Desde el panel de administración se pueden realizar las siguientes acciones:
+
+* Registrar clientes.
+* Registrar habitaciones.
+* Crear reservas.
+* Generar facturas.
+* Registrar pagos.
+* Administrar usuarios.
+
+#### 4. Consumir la API REST
+
+Los endpoints pueden ser utilizados desde:
+
+* Aplicación móvil Android (Kotlin).
+* Postman.
+* Insomnia.
+* Aplicaciones web externas.
+
+Ejemplo:
+
+```http
+https://pisco-hotel.uaeftt-ute.site/reservas
+```
+
+
 
 ## 📁 Estructura de mi Proyecto Reserva de Hotel
 
