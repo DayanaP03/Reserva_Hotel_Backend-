@@ -16,7 +16,8 @@ class RegistroUsuarioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'password', 'password2', 'rol']
+        # Do not allow clients to set `rol` at registration to prevent privilege escalation.
+        fields = ['username', 'email', 'password', 'password2']
 
     def validate(self, attrs):
         if attrs['password'] != attrs.pop('password2'):
@@ -24,4 +25,6 @@ class RegistroUsuarioSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+        # Force default role for newly registered users
+        validated_data.setdefault('rol', 'recepcionista')
         return Usuario.objects.create_user(**validated_data)

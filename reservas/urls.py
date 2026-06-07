@@ -11,6 +11,7 @@ from reservas.views import (
     ClienteViewSet, HabitacionViewSet, ServicioViewSet,
     ReservaViewSet, FacturaViewSet, PagoViewSet,
 )
+from reservas.views.admin import AdminUserList, AdminUserUpdate
 
 router = DefaultRouter()
 router.register(r'clientes',    ClienteViewSet,    basename='cliente')
@@ -27,6 +28,9 @@ urlpatterns = [
     path('auth/refresh/',  TokenRefreshView.as_view(), name='token-refresh'),
     path('auth/registro/', RegistroView.as_view(), name='registro'),
     path('auth/perfil/',   PerfilView.as_view(),   name='perfil'),
+    # Admin user management
+    path('admin/users/', AdminUserList.as_view(), name='admin-user-list'),
+    path('admin/users/<int:pk>/', AdminUserUpdate.as_view(), name='admin-user-update'),
 
     # Recursos principales
     path('', include(router.urls)),

@@ -5,6 +5,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from drf_spectacular.utils import extend_schema
 from reservas.serializers import UsuarioSerializer, RegistroUsuarioSerializer
+from reservas.serializers.auth import CustomTokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 @extend_schema(tags=['Autenticación'])
@@ -14,6 +16,7 @@ class LoginView(TokenObtainPairView):
     Devuelve access token y refresh token.
     """
     permission_classes = [AllowAny]
+    serializer_class = CustomTokenObtainPairSerializer
 
 
 @extend_schema(tags=['Autenticación'])
